@@ -82,8 +82,7 @@ class PrivateGPT(object):
         "answer": answer,
         "reference": reference
     }
-    json_result = json.dumps(result)
-    return json_result
+    return result
 
 
 if __name__ == "__main__":
