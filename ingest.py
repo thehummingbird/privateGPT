@@ -138,7 +138,7 @@ def does_vectorstore_exist(persist_directory: str) -> bool:
                 return True
     return False
 
-def main():
+def ingest():
     # Create embeddings
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
 
@@ -163,4 +163,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    ingest()

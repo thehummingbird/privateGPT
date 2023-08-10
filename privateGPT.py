@@ -9,6 +9,7 @@ from langchain.llms import GPT4All, LlamaCpp
 import os
 import argparse
 import time
+from ingest import ingest
 
 load_dotenv()
 
@@ -44,6 +45,10 @@ class PrivateGPT(object):
   def update_model(self):
     # self.args = self.parse_arguments()
     # print(f"args are {self.args}")
+
+    print(f"ingesting")
+    ingest()
+
     print(f"updating the model")
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
     db = Chroma(persist_directory=persist_directory,
