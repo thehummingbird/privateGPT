@@ -1,0 +1,55 @@
+Anatomy of Kubernetes
+
+This part of the documentation is optional for developers who are only interested in deploying applications to the cluster. It is intended for those who will manage the entire Kubernetes cluster, as it provides information that will help them understand the inner workings of the platform.
+
+Kubernetes architecture consists of a Master-Worker architecture, where the Master node is responsible for managing and controlling the cluster, and the Worker nodes are responsible for running the applications.
+
+Master-Worker Architecture:
+
+The Master-Worker architecture consists of a Master node and multiple Worker nodes. The Master node is responsible for managing and controlling the cluster, while the Worker nodes are responsible for running the applications. The Master node communicates with the Worker nodes to schedule the deployment of containers, manage the scaling of applications, and perform health checks on the containers.
+
+Kubernetes Components:
+
+There are several Kubernetes components that make up the Master-Worker architecture. These components work together to provide a complete container orchestration solution.
+
+kube-apiserver:
+
+The kube-apiserver is the central control plane component of Kubernetes. It exposes the Kubernetes API, which allows developers to interact with the Kubernetes cluster. The kube-apiserver receives requests from the kubectl command-line tool or other Kubernetes components and communicates with other components to fulfill the requests.
+
+kube-controller-manager:
+
+The kube-controller-manager is responsible for managing the lifecycle of Kubernetes objects such as pods, services, and replication controllers. It runs controllers that continuously monitor the state of the Kubernetes objects and take corrective actions if necessary. The kube-controller-manager ensures that the desired state of the objects is always maintained.
+
+kube-scheduler:
+
+The kube-scheduler is responsible for scheduling the deployment of containers onto the Worker nodes. It receives requests from the kube-apiserver and selects a suitable Worker node to deploy the container. The kube-scheduler takes into consideration various factors such as the availability of resources, the location of data, and the specific requirements of the container.
+
+etcd:
+
+etcd is a distributed key-value store that stores the configuration data of the Kubernetes cluster. It provides a highly available and consistent data store that can be used by Kubernetes components. The kube-apiserver uses etcd to store and retrieve the configuration data of the cluster.
+
+kubelet:
+
+The kubelet is responsible for managing the containers on the Worker nodes. It communicates with the kube-apiserver to receive instructions on which containers to run and ensures that the containers are running and healthy. The kubelet also performs health checks on the containers and reports any issues to the kube-apiserver.
+
+kube-proxy:
+
+The kube-proxy is responsible for managing network communication within the Kubernetes cluster. It sets up network rules to allow communication between containers running on different nodes and between the containers and the outside world. The kube-proxy also performs load balancing and service discovery for Kubernetes services.
+
+Here's an example of how each of the Kubernetes components could come into play in a real-world scenario of deploying a web application on a Kubernetes cluster:
+
+Kubernetes API Server (kube-apiserver): The Kubernetes API Server provides the entry point for all Kubernetes cluster management operations. In our web application scenario, we can use the Kubernetes API to create a deployment object that defines the desired state of our application, including the container image to use, the number of replicas to run, and any other required configuration parameters.
+
+etcd: Etcd is a distributed key-value store used by Kubernetes to store configuration data. In our web application scenario, etcd would store the deployment object created by the Kubernetes API Server, as well as other configuration data such as service endpoints and secrets.
+
+Controller Manager (kube-controller-manager): The Controller Manager is responsible for managing the lifecycle of Kubernetes objects, such as deployments and services. In our web application scenario, the Controller Manager would continuously monitor the deployment object created by the Kubernetes API Server, ensuring that the desired state is always maintained. For example, if a Worker node fails or becomes unavailable, the Controller Manager would automatically spin up new replicas to maintain the desired number of running instances.
+
+Scheduler (kube-scheduler): The Scheduler is responsible for scheduling containers onto the Worker nodes. In our web application scenario, the Scheduler would use the deployment object created by the Kubernetes API Server to determine which Worker nodes should run the container replicas, based on factors such as available resources, node affinity, and anti-affinity.
+
+Kubelet: The Kubelet is responsible for managing the containers running on a specific Worker node. In our web application scenario, the Kubelet running on each Worker node would be responsible for pulling the container image specified in the deployment object, starting the container replicas, and monitoring their health.
+
+Kube-Proxy: The Kube-Proxy is responsible for managing network communication between containers running on different nodes, and between the containers and the outside world. In our web application scenario, the Kube-Proxy would use a service object created by the Kubernetes API Server to expose the web application to the outside world, load balancing traffic between the container replicas running on different nodes.
+
+sequence_diagram.svg
+
+This diagram shows the same sequence of steps involved in deploying a web application on a Kubernetes cluster, and the involvement of each Kubernetes component in the process. The User creates a deployment object via the Kubernetes API Server, which is then stored in Etcd. The Controller Manager continuously monitors the deployment object, ensuring that the desired state is maintained. The Scheduler assigns Worker nodes to the container replicas based on various factors, and the Kubelet is responsible for managing the containers on each Worker node. The Kube-Proxy manages network communication between containers running on different nodes, and between the containers and the outside world. Finally, the User can access the deployed web application via the Kube-Proxy and the WebApp component.
