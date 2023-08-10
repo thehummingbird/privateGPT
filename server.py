@@ -28,13 +28,14 @@ def upload():
 
 
 @app.route("/feed", methods=['POST'])
-def upload():
+def feed():
   print("URL download started")
-  title = request.args.get('title')
-  url = request.args.get('url')
+  title = request.form.get('title')
+  url = request.form.get('url')
 
-  request = requests.get(url, allow_redirects=True)
-  open(f"./source_documents/{title}", 'wb').write(request.content)
-
-  print("URL file saved")
+  print(f"title: {title}, url: {url}")
+  document = requests.get(url, allow_redirects=True)
+  open(f"./source_documents/{title}", 'wb').write(document.content)
+  privateGPT.update_model()
+  print("URL file saved and ingested")
   return "OK"
