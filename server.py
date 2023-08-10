@@ -1,13 +1,14 @@
 from flask import Flask, request
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
 import requests
 
 from privateGPT import PrivateGPT
 
 app = Flask(__name__)
+CORS(app)
 
 privateGPT = PrivateGPT()
-
 
 @app.route("/ask", methods=['GET'])
 def query():

@@ -14,3 +14,4 @@ tqdm==4.65.0
 sentence_transformers==2.2.2
 flask==2.3.2
 werkzeug==2.3.6
+flask_cors==4.0.0
