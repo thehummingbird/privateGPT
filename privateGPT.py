@@ -70,6 +70,7 @@ class PrivateGPT(object):
     start = time.time()
     res = self.qa(query)
     answer, docs = res['result'], res['source_documents']
+    reference = docs[0].metadata["source"].split("/")[-1]
     end = time.time()
 
     # Print the result
@@ -79,7 +80,7 @@ class PrivateGPT(object):
     print(answer)
     result = {
         "answer": answer,
-        "reference": docs[0].metadata["source"]
+        "reference": reference
     }
     json_result = json.dumps(result)
     return json_result

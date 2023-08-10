@@ -18,7 +18,7 @@ def query():
   print("Query initialized")
   question = request.args.get("query")
   answer = privateGPT.process_query(question)
-  return f'Question is {answer}'
+  return answer
 
 
 @app.route("/upload", methods=['POST'])
