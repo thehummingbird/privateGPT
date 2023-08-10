@@ -1,10 +1,6 @@
-# Add these in requirements.txt
-# sentence_transformers==2.2.2
-# flask==2.3.2
-# werkzeug==2.3.6
-
 from flask import Flask, request
 from werkzeug.utils import secure_filename
+import requests
 
 from privateGPT import PrivateGPT
 
@@ -28,4 +24,17 @@ def upload():
   file.save(f"./source_documents/{secure_filename(file.filename)}")
   print("File upload complete")
   privateGPT.update_model()
+  return "OK"
+
+
+@app.route("/feed", methods=['POST'])
+def upload():
+  print("URL download started")
+  title = request.args.get('title')
+  url = request.args.get('url')
+
+  request = requests.get(url, allow_redirects=True)
+  open(f"./source_documents/{title}", 'wb').write(request.content)
+
+  print("URL file saved")
   return "OK"
