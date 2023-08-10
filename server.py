@@ -23,17 +23,9 @@ def query():
 
 @app.route("/upload", methods=['POST'])
 def upload():
-  print("file upload started")
+  print("File upload started")
   file = request.files['file']
   file.save(f"./source_documents/{secure_filename(file.filename)}")
-  print("file upload complete")
+  print("File upload complete")
   privateGPT.update_model()
-  print("model OK")
-  return "Ok"
-
-# class PrivateGPT:
-#   def process_query(question):
-#     return "good answer"
-
-#   def update_model():
-#     return "Ok"l
+  return "OK"
